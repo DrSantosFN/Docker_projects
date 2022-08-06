@@ -1,4 +1,4 @@
-# gis_datascience_notebook
+# GIS-datascience notebook
 Jupyter data science notebook with Python, R and Julia languages included.
 
 Mainly Python oriented for Spatial data analysis, including libraries: GDAL, pyproj, fiona, shapely, psycopg2, geopy, requests, geopandas...
