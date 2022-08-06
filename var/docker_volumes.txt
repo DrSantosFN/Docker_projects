@@ -1,0 +1,23 @@
+Source: https://www.youtube.com/watch?v=OrQLrqQm4M0
+
+Create named volume
+docker volume create volume_name
+
+Run container mounting the named volume
+docker run -itd --name test --mount source=mv,target=/home/sanferno alpine
+
+Run container mounting a host volume (-v host:container)
+docker run -itd --name test -v /home/sanferno:/home/sanferno alpine
+
+Run container mounting a anonymous volume (-v host:container) 
+*host path: /var/lib/docker/volumes/random-hash/_data
+docker run -itd --name test -v /home/sanferno alpine
+
+Access the container shell
+docker exec -it test sh
+
+Browse target folder to create new files, save changes, exit container
+exit
+
+Check volume path (mount point path)
+docker volume inspect mv

@@ -1,0 +1,54 @@
+Docker engine install
+Steps: https://docs.docker.com/engine/install/debian/
+
+Create docker group (requires logout after)
+sudo usermod -aG docker $USER
+
+List docker images
+docker images
+
+Edit dockerfile
+nano Dockerfile 
+
+Build docker image
+docker build -t geoserver .
+
+Run docker image
+docker run -p 80:8080 geoserver
+
+Run docker image with interactive terminal
+docker run -it -p 80:8080 geoserver
+
+Run docker image detached
+docker run -d -p 80:8080 geoserver
+Source: https://melvingeorge.me/blog/run-docker-container-in-background-or-detached-mode-terminal
+
+Detach from running image (only in -it mode)
+Press Ctrl-P, followed by Ctrl-Q
+
+Check running images
+docker ps -a
+
+Browse image file system: 
+docker run -it geoserver sh
+
+Docker commit to persist changes to running image
+sudo docker commit [CONTAINER_ID] [new_image_name]
+Source: https://phoenixnap.com/kb/how-to-commit-changes-to-docker-image
+
+Login to Docker Hub
+docker login
+
+Push image to Docker Hub (first the image must be running, commit changes required before push)
+docker push drsantosfn/geoserver-tudublin:v2.21.0
+
+Stop running image
+docker stop geoserver
+Source: https://docs.docker.com/engine/reference/commandline/stop/
+
+Remove image: 
+docker rmi -f geoserver
+Source: https://docs.docker.com/engine/reference/commandline/image_rm/
+
+Remove ALL images:
+docker system prune -a --volumes

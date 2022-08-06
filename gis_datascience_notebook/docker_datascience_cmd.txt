@@ -1,0 +1,33 @@
+Jupyter Notebook using Docker for Data Science (6:30): https://youtu.be/1PVJNPT0sXY?t=392
+
+Run create docker group
+sudo groupadd docker
+
+Add user to docker group (reboot after)
+sudo usermod -aG docker $USER
+
+Run container
+docker run -it --rm --name ds -p 8888:8888 jupyter/datascience-notebook
+
+Run the container in bash mode
+docker exec -it ds bash
+
+Check the packages intalled
+conda list
+
+Instal a package
+conda install requests
+
+How to customize the jupyter/datascience-notebook container with docker-compose
+Source: https://youtu.be/UXxUcZDSNwA?t=710
+Build an extended image (using Dockerfile and docker-compose)
+docker compose up --build (-d)
+
+Run the container in detached mode
+docker compose up -d
+
+Rund de container getting feedback from the terminal
+docker compose up
+
+Remove ALL images:
+docker system prune -a --volumes

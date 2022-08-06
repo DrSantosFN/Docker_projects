@@ -1,0 +1,52 @@
+Source: https://www.youtube.com/watch?v=TVm_Qaw41HU
+
+Open Cloud Shell (Terminal)
+
+Login to cocker from GCP terminal
+docker login
+
+Pull docker image to GCP
+sudo docker pull drsantosfn/geoserver-tudublin
+
+Add image to Google Container Registry
+docker tag drsantosfn/geoserver-tudublin eu.gcr.io/santosfn/geoserver-tudublin
+
+Check image has been registered
+docker image ls
+
+Register image to Google Container Registry
+docker push eu.gcr.io/santosfn/geoserver-tudublin
+> Note: If it fails, enable Google Container Registry API
+
+(Optional) Remove image to Google Container Registry
+docker rmi drsantosfn/geoserver-tudublin
+
+Close Cloud Shell (Terminal)
+
+---
+
+Go to Cloud Run service and "create service"
+
+Deploy one revision from an existing container image
+Select the image registered before in Google (ie: gcr.io/santosfn/geoserver-tudublin)
+
+Service name
+Geoserver
+
+Region
+europe-west1 (Belgium)
+
+CPU allocation and pricing
+CPU is only allocated during request processing
+
+Auto-scaling
+Min 0
+Max 10
+
+Ingress
+Allow all traffic
+
+Authentication
+Allow unauthenticated invocations
+
+Leave rest as default and click Create.

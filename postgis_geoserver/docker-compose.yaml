@@ -1,0 +1,79 @@
+# Docker compose file to:
+# 1. Create a PosgreSQL + PostGIS cluster
+# 2. Create a pgAdmin4 instance
+# 3. Create a Geoserver instance
+# 4. Create a gis-datascience-notebook instance
+
+# Before spinning up create host folders for volumes:
+# 1. Postgres: /home/sanferno/pgenv/postgres_data
+# 2. Geoserver: /home/sanferno/pgenv/geoserver_data
+# 2. Datascience: /home/sanferno/pgenv/notebooks
+
+# To run: docker compose up -d
+# To stop: docker compose down
+
+version: "3"
+
+services:
+
+    # Size: 574MB
+    postgis:
+        container_name: postgis_container
+        image: postgis/postgis
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        volumes:
+            - /home/sanferno/pgenv/postgres:/var/lib/postgresql/data
+        ports: 
+            - 5432:5432
+        restart: always
+
+    # Size: 382MB        
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
+            PGADMIN_DEFAULT_PASSWORD: postgres
+        #volumes:
+        #    - /home/sanferno/pgenv/pgadmin:/var/lib/pgadmin      # requires root
+        ports:
+            - 80:80
+        depends_on:
+            - postgis
+        #user: root
+        restart: always
+
+    # Size: 975MB            
+    geoserver:
+        container_name: geoserver_container
+        image: drsantosfn/geoserver
+        environment:
+            - ENV GEOSERVER_HOME="/opt/geoserver"
+            - ENV GEOSERVER_DATA_DIR="/opt/geoserver/data_dir"
+        volumes:
+            - /home/sanferno/pgenv/geoserver:/opt/geoserver/data_dir
+        ports:
+            - 8080:8080
+        depends_on:
+            - postgis
+        restart: always
+
+    # Size: 2.66GB 
+    datascience:
+        container_name: datascience_container
+        image: drsantosfn/gis-datascience-notebook
+        environment:
+            - JUPYTER_TOKEN=1234
+            - NB_USER=sanferno
+            - CHOWN_EXTRA=/home/sanferno
+            - CHOWN_EXTRA_OPTS=-R
+        volumes:
+            - /home/sanferno/pgenv/notebooks:/home/${NB_USER}
+        ports:
+            - 8888:8888
+        depends_on:
+            - postgis
+        user: root
+        restart: always

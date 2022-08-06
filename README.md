@@ -1,2 +1,2 @@
-# docker_projects
+# docker projects
 Repo merging a series of docker projects

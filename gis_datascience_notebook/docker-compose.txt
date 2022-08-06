@@ -1,0 +1,20 @@
+# To be used when: docker compuse up
+# Permission denied when mounting volumes (option 1)
+# Source: https://jupyter-docker-stacks.readthedocs.io/en/latest/using/troubleshooting.html
+
+version: "3"
+
+services:
+
+    datascience:
+        image: drsantosfn/gis-datascience-notebook
+        environment:
+            - JUPYTER_TOKEN=1234
+            - NB_USER=sanferno
+            - CHOWN_EXTRA=/home/sanferno
+            - CHOWN_EXTRA_OPTS=-R
+        volumes:
+            - /home/sanferno/jpenv/notebooks:/home/${NB_USER}
+        ports:
+            - 8888:8888
+        user: root

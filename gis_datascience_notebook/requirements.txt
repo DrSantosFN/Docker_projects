@@ -1,0 +1,11 @@
+#gdal			# https://pypi.org/project/GDAL/
+#psycopg2		# https://pypi.org/project/psycopg2/
+pyproj			# https://pypi.org/project/pyproj/
+fiona			# https://pypi.org/project/Fiona/
+shapely			# https://pypi.org/project/shapely/
+geopy			# https://pypi.org/project/geopy/
+requests		# https://pypi.org/project/requests/
+geopandas		# https://pypi.org/project/geopandas/
+matplotlib		# https://pypi.org/project/matplotlib/
+arcgis			# https://pypi.org/project/arcgis/
+geemap			# https://pypi.org/project/geemap/  https://github.com/giswqs/geemap
